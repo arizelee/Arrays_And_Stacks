@@ -1,2 +1,2 @@
-# Arrays_And_Stacks
-This repository consists of stack implementations using arrays.
+# Stack_Implementations
+This repository consists of stack implementations (using an array and the Java Stack class).
