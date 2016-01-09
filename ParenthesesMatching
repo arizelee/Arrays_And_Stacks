@@ -1,0 +1,79 @@
+//This program determines whether or not a string of characters contains
+//matching left and right parentheses by using the java Stack class
+********************************************************************
+
+import java.util.*;
+import java.util.Scanner;
+public class ParenMatch {
+    
+public static void main (String[] args) {
+    Stack s = new Stack();
+
+    Object filler = "filler"; //In order to avoid an EmptyStackException exception in the for loop.
+    s.push(filler);
+    //the number below marks any changes
+    int change =0;
+    
+    String line; // the string of characters to be checked
+    Scanner scan = new Scanner(System.in);
+    System.out.println ("\nParenthesis Matching");
+    System.out.print ("Enter a parenthesized expression: ");
+    line = scan.nextLine();
+    
+    for (int i=0; i< line.length(); i++) {
+        String result;
+        char check =  line.charAt(i);
+    
+        if (check == '(' ) {
+   
+            //if another '(' is at the top of the stack. Too many left parentheses.
+            if (s.peek() == (Object) '(') {
+                System.out.println("There are too many left parentheses.");
+                result = line.substring(0, ++i);
+                System.out.println(result);
+                change = 1;
+                break;
+            }
+            //if the stack is empty
+            else { 
+                s.push(check);            
+            }
+        }
+        
+        else if (check == ')' ) {
+            if (s.peek() == (Object) '(') {
+                 s.pop();
+            }
+            //if the stack is empty.
+            else {
+                System.out.println("There are too many right parentheses.");
+                result = line.substring(0, ++i);
+                System.out.println(result);
+                change = 1;
+                break;
+             }
+        }
+    }
+    
+    /*The try catch below checks if only one parentheses was left.
+    If the stack is empty because all parentheses matched and there is no filler,
+    it catches the EmptyStackException and handles it.
+    */
+    
+    try {
+             if (s.peek() == (Object) '(') {
+                 System.out.println("There are too many left parentheses.");
+                change =1;
+             }
+      }
+
+   catch (EmptyStackException problem) {
+        System.out.println("All parentheses match.");
+        change =1;
+      }
+    
+    //everything matched up or no parentheses were entered.
+    if (change == 0) System.out.println("All parentheses match.");
+    
+}
+}
